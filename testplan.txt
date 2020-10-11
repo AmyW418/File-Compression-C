@@ -1,0 +1,332 @@
+﻿Qingyang Wang, Amy Wang
+Assignment 1 - Test Plan
+
+
+Checking For User Input Error:
+
+1. Input:       ./a.out -b test.txt         
+Output:    The name for the executable is wrong.
+
+2. Input:      ./fileCompressor -b
+Input:     ./fileCompressor -R -b -c test.txt ./HuffmanCodebook
+Input：  ./fileCompressor -b -b -c -d -a
+Output:    Incorrect number of arguments. 
+
+3. Input:   ./fileCompressor -b ./HuffmanCodebook
+Output:  Should pass in a file but passed in a Huffman codebook instead.
+
+4. Input:         ./fileCompressor -b ./test.txt.hcz
+Output:  Should pass in a regular file but passed in a compressed file instead.
+
+5. Input:         ./fileCompressor -c ./test.txt
+Input:         ./fileCompressor -d ./test.txt
+Input:         ./fileCompressor -R ./test.txt
+Input:         ./fileCompressor -r ./test.txt
+Output:  Wrong flag is given.
+
+6. Input:         ./fileCompressor -R -b ./test.txt
+Output: Should pass in a directory but passed in a file.
+
+7. Input:  ./fileCompressor -c ./test.txt -a
+Input:  ./fileCompressor -c ./test.txt.hcz -a
+Input:  ./fileCompressor -c ./test.txt.hcz ./HuffmanCodebook
+Output: Wrong file is given.
+
+8. Input: ./fileCompressor -d ./test.txt ./HuffmanCodebook
+Input: ./fileCompressor -d ./test.txt -a
+Input: ./fileCompressor -d ./HuffmanCodebook -a
+Output: Wrong file is given.
+
+9. Input: ./fileCompressor -R -c ./test.txt.hcz ./HuffmanCodebook
+Input: ./fileCompressor -R -c ./test.txt ./HuffmanCodebook
+Input: ./fileCompressor -R -c ./HuffmanCodebook ./HuffmanCodebook
+Output: Should pass in a directory but passed in a file
+
+10. Input: ./fileCompressor -R -d ./test.txt.hcz ./HuffmanCodebook
+Input: ./fileCompressor -R -d ./test.txt ./HuffmanCodebook
+Input: ./fileCompressor -R -d ./HuffmanCodebook ./HuffmanCodebook
+Output: Should pass in a directory but passed in a file.
+
+
+
+Checking for Build Codebook, then Using it for Compress and Decompress of a File :
+
+11. test.txt:# # #          (used 3 # and two spaces) 
+Command: ./fileCompressor -b ./test.txt
+      ./fileCompressor -c ./test.txt ./HuffmanCodebook
+      ./fileCompressor -d ./test.txt.hcz ./HuffmanCodebook
+Result: Correct HuffmanCodebook, test.txt.hcz, test.txt are generated
+
+12.  test.txt: # # #          (used 3 # and four spaces) 
+Command: ./fileCompressor -b ./test.txt
+      ./fileCompressor -c ./test.txt ./HuffmanCodebook
+      ./fileCompressor -d ./test.txt.hcz ./HuffmanCodebook
+Result: Correct HuffmanCodebook, test.txt.hcz, test.txt are generated
+
+13. test.txt:# # #n #t #            
+Command: ./fileCompressor -b ./test.txt
+      ./fileCompressor -c ./test.txt ./HuffmanCodebook
+      ./fileCompressor -d ./test.txt.hcz ./HuffmanCodebook
+Result: Correct HuffmanCodebook, test.txt.hcz, test.txt are generated
+
+14. test.txt:                   (test.txt is just an empty file)          
+Command: ./fileCompressor -b ./test.txt
+      ./fileCompressor -c ./test.txt ./HuffmanCodebook
+      ./fileCompressor -d ./test.txt.hcz ./HuffmanCodebook
+Result: Correct HuffmanCodebook, test.txt.hcz, test.txt are generated
+
+15. test.txt: test for
+ 			  test
+ 			  test for huffman
+ 			  #n
+Command: ./fileCompressor -b ./test.txt
+      ./fileCompressor -c ./test.txt ./HuffmanCodebook
+      ./fileCompressor -d ./test.txt.hcz ./HuffmanCodebook
+Result: Correct HuffmanCodebook, test.txt.hcz, test.txt are generated
+
+16. test.txt:  sdhasghgdfjhasbfnsavbd jdsgagdhasgbhndbxnszgjhdg w xbnzbncbasdgjkgaskgfc
+  sdgasbnxb jdskagjfkgegubcnxzbnbjkg2jg14jkg4<F2>jkg5jrbwenfb
+ fgjsgdkgakfbnc bajksgduguwgdejbjsbcjsjagdjgsfvcnzbxmbkajwgedqw
+ cxjasjkd,sdjgsjafgjkagut389ikkascf.asdhasgfgjsfjsk.nda sdjkagfs,cf       sdfgjsgjcbxm.wdghkjagjkdcgx.dmsbmfbs
+
+
+
+
+dhskahlbcnxm/.../,..,.,.jdl;ajldksafklcbxncmz
+          dakbcmxz,/pie[8i32084wjflcjs
+cdkahsklncx,/zd;sja;fjsc,x.zchasf
+daklshlcnx.zc.mz,.mxc,.zx.nv,.xznfkhkshgkln,vn c        ,.xnv,.nchglkhkvnz,.nxv.,nxzfkdfhlsh
+ahdahldha,x.z.cfnsfshagxgzBXNbmngjafdjfhjjsakm.zm..j.
+
+
+hdkashldhlahslhxz.mx.a.sjj;h                
+Command: ./fileCompressor -b ./test.txt
+      ./fileCompressor -c ./test.txt ./HuffmanCodebook
+      ./fileCompressor -d ./test.txt.hcz ./HuffmanCodebook
+Result: Correct HuffmanCodebook, test.txt.hcz, test.txt are generated
+
+17. test.txt: test, for test
+ 			  test. huffman     
+huffman,
+Command: ./fileCompressor -b ./test.txt
+      ./fileCompressor -c ./test.txt ./HuffmanCodebook
+      ./fileCompressor -d ./test.txt.hcz ./HuffmanCodebook
+Result: Correct HuffmanCodebook, test.txt.hcz, test.txt are generated
+
+18. test.txt: test, for Test
+ 			  Test. HuffAan     
+ 			  huffman,
+Command: ./fileCompressor -b ./test.txt
+      ./fileCompressor -c ./test.txt ./HuffmanCodebook
+      ./fileCompressor -d ./test.txt.hcz ./HuffmanCodebook
+Result: Correct HuffmanCodebook, test.txt.hcz, test.txt are generated
+
+19. test.txt is in the Test directory
+test.txt: test, for Test
+ 		  Test. HuffAan     
+ 		  huffman,
+Command: ./fileCompressor -b ./Test/test.txt
+      ./fileCompressor -c ./Test/test.txt ./HuffmanCodebook
+      ./fileCompressor -d ./Test/test.txt.hcz ./HuffmanCodebook
+Result: Correct HuffmanCodebook, test.txt.hcz, test.txt are generated
+
+20. test.txt is in the testfolder directory and testfolder directory is in the Test directory
+test.txt: test, for Test
+ 		  Test. HuffAan     
+ 		   huffman,
+Command: ./fileCompressor -b ./Test/testfolder/test.txt
+      ./fileCompressor -c ./Test/testfolder/test.txt ./HuffmanCodebook
+      ./fileCompressor -d ./Test/testfolder/test.txt.hcz ./HuffmanCodebook
+Result: Correct HuffmanCodebook, test.txt.hcz, test.txt are generated
+
+
+
+
+Checking for Build Codebook, then Using it for Compress and Decompress of Directories :
+
+21. ./Test:        (./Test is an empty directory)          
+Command: ./fileCompressor -R -b ./Test
+      ./fileCompressor -R -c ./Test ./HuffmanCodebook
+      ./fileCompressor -R -d ./Test ./HuffmanCodebook
+Result: Correct HuffmanCodebook,  no other files are made
+
+22. ./Test:      (Test directory contains testfolder directory, test.txt, test1.txt  and test2.txt)    
+    (testfolder directory contains test3.txt) 
+Test1.txt: test
+Test2.txt is an empty file
+test3.txt: test huffman 
+Command: ./fileCompressor -R -b ./Test
+      ./fileCompressor -R -c ./Test ./HuffmanCodebook
+      ./fileCompressor -R -d ./Test ./HuffmanCodebook
+Result: Correct HuffmanCodebook, test1.txt.hcz, test2.txt.hcz, test3.txt, test1.txt, test2.txt, and test3.txt are generated.
+
+23. ./Test:      (Test directory contains testfolder directory, test.txt, test1.txt  and test2.txt)    
+    (testfolder directory contains test3.txt) 
+test1.txt is an empty file
+test2.txt is an empty file 
+test3.txt is an empty file 
+Command: ./fileCompressor -R -b ./Test
+      ./fileCompressor -R -c ./Test ./HuffmanCodebook
+      ./fileCompressor -R -d ./Test ./HuffmanCodebook
+Result: Correct HuffmanCodebook, test1.txt.hcz, test2.txt.hcz, test3.txt, test1.txt, test2.txt, and test3.txt are generated, all of them are just empty files.
+
+24. ./Test:      (Test directory contains test1.txt)    
+test1.txt:  this is        a        test        for 
+    		huffman     
+                  
+Command: ./fileCompressor -R -b ./Test
+      ./fileCompressor -R -c ./Test ./HuffmanCodebook
+      ./fileCompressor -R -d ./Test ./HuffmanCodebook
+Result: Correct HuffmanCodebook, test1.txt.hcz, and  test1.txt are generated
+
+25. ./Test:      (Test directory contains testfolder directory, test1.txt and test2.txt)    
+    (testfolder directory contains test3.txt) 
+test1.txt:  this is        a        test        for 
+    		huffman 
+test2.txt: for test test 
+   		   test
+
+
+           test
+
+test3.txt:  
+    		test           huffman
+                                for
+Command: ./fileCompressor -R -b ./Test
+      ./fileCompressor -R -c ./Test ./HuffmanCodebook
+      ./fileCompressor -R -d ./Test ./HuffmanCodebook
+Result: Correct HuffmanCodebook, 
+Correct test1.txt.hcz, and  test1.txt are generated,
+Correct test2.txt.hcz, and  test2.txt are generated,
+Correct test3.txt.hcz, and  test3.txt are generated.
+
+26. ./Test:      (Test directory contains testfolder directory, test.txt, test1.txt  and test2.txt)    
+    (testfolder directory contains test3.txt) 
+test.txt: 
+gkdgcjkxzjkcgsn  hkahs kdkagsdgjska dsghkjdg agdjasg fjkaskgdfkj askjf jgjkgsjkd gsjkg dgjask fks gfkjag gsjkg gkasgfk sgfkgasjk 
+gjksgjkfgkag-==9-9n dashfhsalhflha osa;fj lasfa.sf/asfjas;jf.xmc.xjkfj lsdf ,asf a
+fshflkhn,xc. dlfh alf cxc,x.v ;fja
+f,xbc,xzblhf .xc. askfh
+fkhsldhncx//,.,./ ashflhsl c,x.mf as;fdkhfkls
+kslhfkl x.cm slhflshf
+####n dkasgdkj as,nx sjdasg xmnd 
+fasgjkbcx hfklha sfj ;a
+#$#
+dasjkdgj hsalshlll f hklash lfhlas hlk
+##t dkash dkashdf jgsajk 'as klfshal as
+fasjkf laksf ll
+fak lkahl lsa
+fask hlah lsfhla lhaslkh ilry3 ashflkha sioyr hal hdkla sflhile haslk hfalkhfr w
+test1.txt: test 
+test2.txt: for
+test3.txt: test huffman
+Command: ./fileCompressor -R -b ./Test
+      ./fileCompressor -R -c ./Test ./HuffmanCodebook
+      ./fileCompressor -R -d ./Test ./HuffmanCodebook
+Result: Correct HuffmanCodebook, test1.txt.hcz, test2.txt.hcz, test3.txt, test.txt.hcz, test.txt, test1.txt, test2.txt, and test3.txt are generated.
+
+27.   ./Test:      (Test directory contains testfolder directory, test.txt and test1.txt )    
+      (testfolder directory contains folder directory, test2.txt) 
+     (folder directory contains test3.txt)
+test.txt:   this is        a        test        for 
+   			huffman
+test1.txt: test 
+test2.txt: for
+           huffman
+test3.txt: test huffman
+Command: ./fileCompressor -R -b ./Test
+      ./fileCompressor -R -c ./Test ./HuffmanCodebook
+      ./fileCompressor -R -d ./Test ./HuffmanCodebook
+Result: Correct HuffmanCodebook, test1.txt.hcz, test2.txt.hcz, test3.txt, test.txt.hcz, test.txt, test1.txt, test2.txt, and test3.txt are generated.
+
+28.   ./Test:      (Test directory contains testfolder directory and folder directory )    
+      (testfolder directory contains folder directory, test2.txt) 
+     (folder directory contains test3.txt)
+test2.txt: for
+           huffman
+test3.txt: test huffman
+Command: ./fileCompressor -R -b ./Test
+      ./fileCompressor -R -c ./Test ./HuffmanCodebook
+      ./fileCompressor -R -d ./Test ./HuffmanCodebook
+Result: Correct HuffmanCodebook, test1.txt.hcz, test2.txt.hcz, test3.txt, test.txt.hcz, test.txt, test1.txt, test2.txt, and test3.txt are generated.
+
+
+
+
+Checking for Compress and Decompress if an Alternate Huffman Codebook is given:
+
+
+29.  Input: HuffmanCodebook:    @@@                          1.   test.txt: bye        bye
+             			90        hi                           (or)
+				100        bye                 2.   test.txt.hcz:010
+				101        @@@t
+				111        @@@n
+
+Command:        1.    ./fileCompressor -c ./test.txt ./HuffmanCodebook
+                        2.    ./fileCompressor -d ./test.txt.hcz ./HuffmanCodebook
+Output:  Error: Improper bit sequence 90 in given Huffman Codebook
+* Because token “hi” and bit sequence “90” are not used in the test case, the proper output files, test.txt.hcz and test.txt, are still generated. An error is printed for the improper input, the bit sequence and token is ignored, and the code continues.
+
+
+30. Input: HuffmanCodebook:     @@@                        test.txt:hi        bye
+				90        hi                         
+				0        bye                         
+				1        @@@t
+
+Command:         ./fileCompressor -c ./test.txt ./HuffmanCodebook
+Output:  Error: Improper bit sequence 90 in given Huffman Codebook
+Error: hi was not in the Huffman Codebook
+
+
+31. Input: HuffmanCodebook:     @@@                                  test.txt.hcz:9010
+             			90        hi                         
+				0        bye                         
+				1        @@@t
+
+Command:        ./fileCompressor -d ./test.txt.hcz ./HuffmanCodebook
+Output:  Error: Improper bit sequence 90 in given Huffman Codebook
+Error: ./test2.txt.hcz cannot be decompressed with given Huffman Codebook
+
+
+32. Input: HuffmanCodebook:      @@@                        1.    test.txt: hi bye goodnight
+            			 0        hi                         (or)
+				 100        bye             2.    test.txt.hcz:0101100111
+				 101        @@@
+
+        Command:        1.    ./fileCompressor -c ./test.txt ./HuffmanCodebook
+                        2.    ./fileCompressor -d ./test.txt.hcz ./HuffmanCodebook
+Output:    1.  Error: goodnight was not in the Huffman Codebook
+            2.  Error: ./test2.txt.hcz cannot be decompressed with given Huffman Codebook
+
+
+33. Input: HuffmanCodebook:     @@@
+				0        hi
+				00        bye
+				01        @@@ 
+				1100        goodnight
+				1101        @@@n
+                  test.txt: hi goodnight
+                        	bye bye bye
+
+
+Command:         ./fileCompressor -c ./test.txt ./HuffmanCodebook
+                 ./fileCompressor -d ./test.txt.hcz ./HuffmanCodebook
+Result:  Correct files test.txt.hcz and test.txt are generated
+
+
+34. Input: HuffmanCodebook:     0        hi
+         			100        bye
+         			101        
+
+				1100        goodnight
+         			1101         
+
+                test.txt:   bye
+  			    goodnight bye bye
+  			    hi hi hi
+   * No escape character test: token for 101 is a newline and token for 1101 is space
+Result:  Correct files test.txt.hcz and test.txt are generated
+
+
+35. If no errors (improper bit sequence or if tokenor value cannot be found in Codebook), compress and decompress works correctly and in the same way as previous test cases with or without escape character.
+
